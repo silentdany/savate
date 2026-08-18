@@ -6,20 +6,40 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "icons": "node scripts/gen-icons.mjs",
+    "e2e:acceptation": "node e2e/acceptation.mjs",
+    "e2e:offline": "node e2e/offline.mjs",
+    "e2e:seance": "node e2e/seance.mjs",
+    "e2e:timer": "node e2e/timer.mjs",
+    "e2e:audit": "node e2e/audit.mjs",
+    "e2e:pwa": "node e2e/pwa.mjs",
+    "e2e:captures": "node e2e/captures.mjs",
+    "verifier": "npm run typecheck && npm run lint && npm run build"
   },
   "dependencies": {
+    "@radix-ui/react-dialog": "^1.1.23",
+    "@radix-ui/react-slider": "^1.4.7",
+    "clsx": "^2.1.1",
+    "dexie": "^4.4.5",
+    "dexie-react-hooks": "^4.4.0",
     "next": "16.3.1",
     "react": "19.2.8",
-    "react-dom": "19.2.8"
+    "react-dom": "19.2.8",
+    "tailwind-merge": "^3.6.0"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "axe-core": "^4.13.0",
     "eslint": "^9",
     "eslint-config-next": "16.3.1",
+    "lighthouse": "^13.4.1",
+    "playwright": "^1.62.1",
+    "sharp": "^0.35.3",
     "tailwindcss": "^4",
     "typescript": "^5"
   }

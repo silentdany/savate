@@ -39,3 +39,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# artefacts d'audit Lighthouse (WSL crée des dossiers au chemin Windows)
+C:\\*

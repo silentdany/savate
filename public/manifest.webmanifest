@@ -1,0 +1,25 @@
+{
+  "name": "BF Dojo — entrainement savate",
+  "short_name": "BF Dojo",
+  "description": "Plan de savate boxe francaise sur 8 semaines : seance du jour, timer de rounds, log et progression. Fonctionne hors ligne.",
+  "id": "/",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "display_override": ["standalone", "fullscreen"],
+  "orientation": "portrait",
+  "background_color": "#08090c",
+  "theme_color": "#08090c",
+  "lang": "fr",
+  "dir": "ltr",
+  "categories": ["health", "fitness", "sports"],
+  "icons": [
+    { "src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "Seance du jour", "url": "/", "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }] },
+    { "name": "Historique", "url": "/historique" }
+  ]
+}
