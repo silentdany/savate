@@ -17,6 +17,11 @@
  *     `renfoTours` fois.
  *   - `requiertCoupsHauts: true` = l'exercice disparait tant que la semaine
  *     n'autorise pas les coups hauts.
+ *
+ *  Materiel suppose : corde a sauter, exterieur pour courir, rameur ou
+ *  elliptique. Le cardio des semaines 1 et 2 est volontairement SANS IMPACT
+ *  (machine uniquement) : c'est la protection des adducteurs a la reprise, pas
+ *  une preference d'outil. Si tu changes ca, change-le en connaissance de cause.
  * ============================================================================
  */
 import type { Plan } from '@/lib/types'
@@ -52,8 +57,8 @@ export const PLAN: Plan = {
       bfIntensitePct: [50, 60],
       coupsHautsAutorises: false,
       renfoTours: 2,
-      cardioFormat: '20 min de vélo, allure conversation',
-      note: 'Reprise. Rien au-dessus de la ceinture, aucun coup en extension complète. On cherche le geste propre, pas la puissance.',
+      cardioFormat: '20 min de rameur ou d’elliptique, allure conversation',
+      note: 'Reprise. Rien au-dessus de la ceinture, aucun coup en extension complète. Le cardio reste sans impact : machine, pas de corde ni de course. On cherche le geste propre, pas la puissance.',
     },
     {
       semaine: 2,
@@ -61,7 +66,7 @@ export const PLAN: Plan = {
       bfIntensitePct: [55, 65],
       coupsHautsAutorises: false,
       renfoTours: 2,
-      cardioFormat: '25 min de vélo, allure conversation',
+      cardioFormat: '25 min de rameur ou d’elliptique, allure conversation',
       note: 'Même cadre, un round de plus. Le lendemain doit rester silencieux.',
     },
     {
@@ -70,7 +75,7 @@ export const PLAN: Plan = {
       bfIntensitePct: [60, 70],
       coupsHautsAutorises: false,
       renfoTours: 3,
-      cardioFormat: '6 × (2 min soutenu / 1 min souple)',
+      cardioFormat: '6 × (2 min soutenu / 1 min souple), rameur, elliptique ou côte',
       note: 'Première semaine à 3 tours de renfo. Coups bas et médians uniquement.',
     },
     {
@@ -79,7 +84,7 @@ export const PLAN: Plan = {
       bfIntensitePct: [65, 75],
       coupsHautsAutorises: true,
       renfoTours: 3,
-      cardioFormat: '8 × (2 min soutenu / 1 min souple)',
+      cardioFormat: '8 × (2 min soutenu / 1 min souple), machine ou côte',
       note: 'Réintroduction des coups hauts, jambe avant seulement, à vide puis au sac. Volume de rounds inchangé exprès.',
     },
     {
@@ -88,8 +93,8 @@ export const PLAN: Plan = {
       bfIntensitePct: [70, 80],
       coupsHautsAutorises: true,
       renfoTours: 3,
-      cardioFormat: '10 × (30 s vif / 30 s souple)',
-      note: 'Coups hauts des deux jambes. Premiers enchaînements à vitesse réelle.',
+      cardioFormat: '10 × (30 s vif / 30 s souple) à la corde',
+      note: 'Coups hauts des deux jambes. Premiers enchaînements à vitesse réelle. La corde entre dans le fractionné : si les mollets ou l’aine tirent le lendemain, reviens à la machine.',
     },
     {
       semaine: 6,
@@ -97,7 +102,7 @@ export const PLAN: Plan = {
       bfIntensitePct: [75, 85],
       coupsHautsAutorises: true,
       renfoTours: 4,
-      cardioFormat: '12 × (30 s vif / 30 s souple)',
+      cardioFormat: '12 × (30 s vif / 30 s souple) à la corde',
       note: 'Semaine la plus chargée en renfo. Si la séance BF du jeudi est terne, allège plutôt que de forcer.',
     },
     {
@@ -106,7 +111,7 @@ export const PLAN: Plan = {
       bfIntensitePct: [80, 90],
       coupsHautsAutorises: true,
       renfoTours: 4,
-      cardioFormat: '2 blocs de 8 × (40 s vif / 20 s souple), 3 min entre les blocs',
+      cardioFormat: '2 blocs de 8 × (40 s vif / 20 s souple) à la corde, 3 min entre les blocs',
       note: 'Opposition souple possible sur les rounds d’intensité. Touche, ne casse pas.',
     },
     {
@@ -115,7 +120,7 @@ export const PLAN: Plan = {
       bfIntensitePct: [85, 95],
       coupsHautsAutorises: true,
       renfoTours: 3,
-      cardioFormat: '15 min souple + 6 × 10 s de sprint, récupération complète',
+      cardioFormat: '15 min souple + 6 × 10 s de sprint en côte, récupération complète',
       note: 'Affûtage. Renfo redescendu à 3 tours pour arriver frais. Le volume de rounds est au maximum du plan.',
     },
   ],
@@ -247,7 +252,7 @@ export const PLAN: Plan = {
           bloc: 'echauffement',
           titre: 'Échauffement',
           exercices: [
-            { id: 'rna-e1', nom: 'Vélo ou rameur, allure facile', mesure: 'duree', cible: { dureeSec: 300 } },
+            { id: 'rna-e1', nom: 'Rameur ou elliptique, allure facile', mesure: 'duree', consigne: 'À défaut, 5 min de corde souple, sans chercher la hauteur', cible: { dureeSec: 300 } },
             { id: 'rna-e2', nom: 'Pont fessier au sol', mesure: 'reps', cible: { series: 2, reps: 15 } },
             { id: 'rna-e3', nom: 'Bird-dog', mesure: 'reps', consigne: '10 par côté, sans bouger le bassin', cible: { series: 1, reps: 20 } },
           ],
@@ -288,7 +293,7 @@ export const PLAN: Plan = {
           bloc: 'echauffement',
           titre: 'Échauffement',
           exercices: [
-            { id: 'rnb-e1', nom: 'Vélo ou corde, allure facile', mesure: 'duree', cible: { dureeSec: 300 } },
+            { id: 'rnb-e1', nom: 'Corde ou elliptique, allure facile', mesure: 'duree', cible: { dureeSec: 300 } },
             { id: 'rnb-e2', nom: 'Squat au poids du corps', mesure: 'reps', cible: { series: 2, reps: 15 } },
             { id: 'rnb-e3', nom: 'Chevilles, genou au mur', mesure: 'reps', consigne: '10 par côté, talon au sol', cible: { series: 1, reps: 20 } },
           ],
@@ -329,7 +334,7 @@ export const PLAN: Plan = {
           bloc: 'echauffement',
           titre: 'Échauffement',
           exercices: [
-            { id: 'car-e1', nom: 'Montée en allure progressive', mesure: 'duree', consigne: 'Vélo, rameur ou course, au choix', cible: { dureeSec: 480 } },
+            { id: 'car-e1', nom: 'Montée en allure progressive', mesure: 'duree', consigne: 'Rameur, elliptique, corde ou course — l’allure compte plus que l’outil', cible: { dureeSec: 480 } },
           ],
         },
         {
@@ -393,7 +398,7 @@ export const PLAN: Plan = {
     {
       zone: 'cheville',
       seuil:
-        'Cheville : supprime la corde à sauter et les sautillés, remplace par du vélo. Vérifie l’appui du pied avant sur les chassés. Si l’articulation gonfle, glace et repos 48 h.',
+        'Cheville : supprime la corde à sauter et les sautillés, bascule tout le cardio sur rameur ou elliptique. Vérifie l’appui du pied avant sur les chassés. Si l’articulation gonfle, glace et repos 48 h.',
     },
     {
       zone: 'epaule',
