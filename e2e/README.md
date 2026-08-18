@@ -23,3 +23,12 @@ Puis, dans un autre terminal :
 
 `e2e:timer` prend environ deux minutes : il attend du temps réel, c'est le
 principe même du test.
+
+## Cibler un autre environnement
+
+Tous les scripts lisent `BF_URL` (défaut `http://localhost:3177`), ce qui permet
+de rejouer la même vérification contre la production :
+
+```bash
+BF_URL=https://savate.accura.dev npm run e2e:audit
+```

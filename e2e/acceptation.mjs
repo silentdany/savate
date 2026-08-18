@@ -1,7 +1,9 @@
 import { chromium } from 'playwright'
+
+const BASE = process.env.BF_URL ?? 'http://localhost:3177'
 import { readFileSync, rmSync, writeFileSync } from 'node:fs'
 
-const URL = 'http://localhost:3177'
+const URL = process.env.BF_URL ?? BASE + ''
 const OUT = '/tmp/claude-1000/-home-dany-Projects/60957708-1ac3-4071-9786-893e32ce37c3/scratchpad'
 const resultats = []
 const ok = (n, c, d = '') => { resultats.push([c ? 'OK  ' : 'ÉCHEC', n, d]); }

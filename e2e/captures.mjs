@@ -1,5 +1,7 @@
 import { chromium } from 'playwright'
-const URL = 'http://localhost:3177'
+
+const BASE = process.env.BF_URL ?? 'http://localhost:3177'
+const URL = process.env.BF_URL ?? BASE + ''
 const OUT = process.argv[2] ?? '/tmp/shots'
 const b = await chromium.launch()
 const ctx = await b.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2 })

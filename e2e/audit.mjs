@@ -1,7 +1,9 @@
 import { chromium } from 'playwright'
+
+const BASE = process.env.BF_URL ?? 'http://localhost:3177'
 import { readFileSync } from 'node:fs'
 
-const URL = 'http://localhost:3177'
+const URL = process.env.BF_URL ?? BASE + ''
 const AXE = readFileSync('node_modules/axe-core/axe.min.js', 'utf8')
 const b = await chromium.launch()
 const ctx = await b.newContext({ viewport: { width: 390, height: 844 } })

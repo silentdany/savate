@@ -1,5 +1,7 @@
 # BF Dojo
 
+**En ligne : https://savate.accura.dev** (miroir : https://savate.vercel.app)
+
 App perso mono-utilisateur pour dérouler un plan de savate boxe française au
 dojo, téléphone en main, entre deux rounds. Hors ligne, sombre, gros boutons.
 
@@ -46,8 +48,15 @@ Deux règles en éditant :
 
 ## Déploiement
 
-Vercel, sans configuration : `vercel --prod`. Aucune variable d'environnement,
-aucun backend, aucune dépendance réseau au runtime.
+Vercel, projet `savate`, connecté à ce dépôt : **un push sur `main` déploie en
+production**. Aucune variable d'environnement, aucun backend, aucune dépendance
+réseau au runtime.
+
+Déploiement manuel si besoin :
+
+```bash
+vercel --prod
+```
 
 ## Notes
 

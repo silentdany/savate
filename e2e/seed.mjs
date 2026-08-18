@@ -1,5 +1,7 @@
 import { chromium } from 'playwright'
-const URL = 'http://localhost:3177'
+
+const BASE = process.env.BF_URL ?? 'http://localhost:3177'
+const URL = process.env.BF_URL ?? BASE + ''
 const b = await chromium.launch()
 const p = await (await b.newContext({ viewport: { width: 390, height: 844 } })).newPage()
 await p.goto(URL, { waitUntil: 'networkidle' })
