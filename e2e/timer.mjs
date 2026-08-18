@@ -25,7 +25,7 @@ await p.waitForTimeout(600)
 
 // avance jusqu'au bloc Sac (mesure « rounds »)
 for (let i = 0; i < 20; i++) {
-  if (await p.getByRole('button', { name: /Lancer les rounds/ }).count()) break
+  if (await p.getByRole('button', { name: /^Lancer les rounds$/ }).count()) break
   await p.getByRole('button', { name: /Passer →/ }).click()
   await p.waitForTimeout(90)
 }

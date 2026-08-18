@@ -154,9 +154,6 @@ export function TimerRounds({
         <p className="px-1 text-center text-[16px] text-ink-3">
           Total {formatDuree(dureeTotaleMs(config) / 1000)} pour {config.nbRounds} rounds
         </p>
-        <Bouton variante="primaire" taille="xl" pleineLargeur onClick={lancer}>
-          Lancer les rounds
-        </Bouton>
       </div>
     )
   }

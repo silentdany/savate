@@ -60,7 +60,7 @@ await p.evaluate(async () => {
 })
 await p.goto(URL + '/seance/tt', { waitUntil: 'networkidle' }); await p.waitForTimeout(500)
 for (let i = 0; i < 25; i++) {
-  if (await p.getByRole('button', { name: /Lancer les rounds/ }).count()) break
+  if (await p.getByRole('button', { name: /^Lancer les rounds$/ }).count()) break
   await p.getByRole('button', { name: 'Passer →' }).click(); await p.waitForTimeout(90)
 }
 await shot('12-timer-config')

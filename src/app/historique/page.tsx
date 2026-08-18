@@ -6,7 +6,7 @@ import { Entete, EtatVide, PastilleStatut, Squelette } from '@/components/ui/div
 import { cn } from '@/lib/cn'
 import { TYPES, agregerParSemaine, dureeReelleMin } from '@/lib/agregats'
 import { useEtat, useLogs, useMonte, usePlan } from '@/lib/hooks'
-import { LIBELLE_TYPE, templateParId } from '@/lib/progression'
+import { LIBELLE_TYPE, pluriel, templateParId } from '@/lib/progression'
 import type { TypeSeance } from '@/lib/types'
 
 // Palette de series validee pour fond sombre : bande de clarte, plancher de
@@ -51,7 +51,7 @@ export default function PageHistorique() {
 
   return (
     <main className="pb-8">
-      <Entete titre="Historique" sous={`${logs.length} séance(s)`} />
+      <Entete titre="Historique" sous={pluriel(logs.length, 'séance')} />
 
       {!aDesDonnees ? (
         <div className="px-5 pt-4">
@@ -154,7 +154,7 @@ export default function PageHistorique() {
                       <div className="mt-2 flex flex-wrap gap-x-5 gap-y-1 text-[16px] text-ink-2">
                         <span>{duree !== null ? `${duree} min` : 'durée inconnue'}</span>
                         <span>{log.rpe ? `RPE ${log.rpe}/10` : 'RPE non noté'}</span>
-                        <span>{log.entrees.filter((e) => e.fait).length} exercice(s)</span>
+                        <span>{pluriel(log.entrees.filter((e) => e.fait).length, 'exercice')}</span>
                       </div>
                       {log.gene && log.gene.length > 0 && (
                         <p className="mt-2 text-[16px] font-semibold text-warn">

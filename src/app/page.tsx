@@ -5,7 +5,7 @@ import { useState } from 'react'
 import { amorcerAudio } from '@/lib/audio'
 import { demarrerSeance } from '@/lib/db'
 import { useContexte, useHorloge, useLogsSemaine, useMonte, useSeanceEnCours } from '@/lib/hooks'
-import { CLASSE_TYPE, LIBELLE_TYPE, dureeCible, templateParId } from '@/lib/progression'
+import { CLASSE_TYPE, LIBELLE_TYPE, dureeCible, pluriel, templateParId } from '@/lib/progression'
 import { resumeParametres, seancesFaites, suggererSeance } from '@/lib/seance-du-jour'
 import type { RaisonSuggestion } from '@/lib/seance-du-jour'
 import { InviteInstallation } from '@/components/InviteInstallation'
@@ -16,9 +16,9 @@ import { cn } from '@/lib/cn'
 
 const RAISON: Record<RaisonSuggestion, string> = {
   jour: 'Prévu aujourd’hui',
-  rattrapage: 'Rien de prévu aujourd’hui — à rattraper',
-  mobilite: 'Jour de repos — entretien seulement',
-  tout_fait: 'Semaine bouclée — entretien seulement',
+  rattrapage: 'À rattraper',
+  mobilite: 'Jour de repos',
+  tout_fait: 'Semaine bouclée',
 }
 
 export default function Aujourdhui() {
@@ -112,7 +112,8 @@ export default function Aujourdhui() {
                 new Date(enCours.dateDebut)
               )}
               {' — '}
-              {enCours.entrees.filter((e) => e.fait).length} exercice(s) déjà validé(s)
+              {pluriel(enCours.entrees.filter((e) => e.fait).length, 'exercice')} déjà validé
+              {enCours.entrees.filter((e) => e.fait).length > 1 ? 's' : ''}
             </p>
             <p className="mt-3 text-[18px] font-bold text-accent">Reprendre →</p>
           </button>

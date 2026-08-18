@@ -66,7 +66,7 @@ const faireLog = (i, semaine, tpl, rpe, rounds, volume) => ({
   await p.getByRole('button', { name: 'Continuer' }).click()
   await p.getByRole('button', { name: 'Oui, tout effacer' }).click()
   await p.waitForTimeout(700)
-  const videApres = await p.getByText(/0 séance\(s\) enregistrée/).count()
+  const videApres = await p.getByText(/^0 séance enregistrée/).count()
 
   await p.locator('input[type=file]').setInputFiles(f1)
   await p.waitForTimeout(900)
@@ -130,9 +130,9 @@ const faireLog = (i, semaine, tpl, rpe, rounds, volume) => ({
   const p2 = c2.pages()[0] ?? (await c2.newPage())
   await p2.goto(URL, { waitUntil: 'networkidle' }); await p2.waitForTimeout(1200)
   const reprise = await p2.getByText('Séance en cours').count()
-  const valides = await p2.getByText(/2 exercice\(s\) déjà validé/).count()
+  const valides = await p2.getByText(/2 exercices déjà validés/).count()
   ok('Global — les données survivent à un kill de l’app', reprise === 1 && valides === 1,
-     `bandeau « Séance en cours »=${reprise}, « 2 exercice(s) déjà validé(s) »=${valides}`)
+     `bandeau « Séance en cours »=${reprise}, « 2 exercices déjà validés »=${valides}`)
   await c2.close()
 }
 

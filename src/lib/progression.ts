@@ -64,8 +64,13 @@ export function resoudreTexte(texte: string | undefined, p: ParametresSemaine): 
   return texte
     .replace(/\{rounds\}/g, String(p.bfRounds))
     .replace(/\{tours\}/g, String(p.renfoTours))
-    .replace(/\{intensite\}/g, `${p.bfIntensitePct[0]} a ${p.bfIntensitePct[1]} %`)
+    .replace(/\{intensite\}/g, `${p.bfIntensitePct[0]} à ${p.bfIntensitePct[1]} %`)
     .replace(/\{cardioFormat\}/g, p.cardioFormat)
+}
+
+/** « 1 séance », « 3 séances » — les « (s) » partout, ça se lit mal en sueur. */
+export function pluriel(n: number, mot: string, pluriel = `${mot}s`): string {
+  return `${n} ${n > 1 ? pluriel : mot}`
 }
 
 export function formatDuree(totalSec: number): string {

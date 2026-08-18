@@ -10,7 +10,8 @@ import { Feuille } from '@/components/ui/Feuille'
 import { Stepper } from '@/components/ui/Stepper'
 import { Squelette } from '@/components/ui/divers'
 import { cn } from '@/lib/cn'
-import { CHRONO_INITIAL, type EtatChrono } from '@/lib/chrono'
+import { CHRONO_INITIAL, type EtatChrono, demarrer as demarrerChrono } from '@/lib/chrono'
+import { amorcerAudio } from '@/lib/audio'
 import { cloturerSeance, demarrerSeance, enregistrerEntree } from '@/lib/db'
 import {
   useDernieresSaisies,
@@ -27,6 +28,7 @@ import {
   formatDuree,
   libelleCible,
   parametresSemaine,
+  pluriel,
   templateParId,
 } from '@/lib/progression'
 import type { ConfigRounds } from '@/lib/rounds'
@@ -268,6 +270,10 @@ function RunnerSeance({ logId }: { logId: string }) {
 
   if (!etape) return null
 
+  const chronoEtape = chronoDe(etape.cle)
+  // Sur un exercice en rounds, tant que le timer n'est pas parti, l'action
+  // principale est de le lancer : valider ici enregistrerait 0 round.
+  const roundsAvantDepart = etape.exercice.mesure === 'rounds' && chronoEtape.statut === 'pret'
   const entreeCourante = entreeDe(etape)
   const derniere = dernieres?.[etape.exercice.id]
   const cible = libelleCible(etape.exercice, etape.roundsCible)
@@ -464,9 +470,16 @@ function RunnerSeance({ logId }: { logId: string }) {
           variante="primaire"
           taille="xl"
           pleineLargeur
-          onClick={() => void enregistrer(true)}
+          onClick={() => {
+            if (roundsAvantDepart) {
+              amorcerAudio()
+              setChronoDe(etape.cle)(demarrerChrono)
+              return
+            }
+            void enregistrer(true)
+          }}
         >
-          {estCheck ? 'Fait' : 'Valider'}
+          {roundsAvantDepart ? 'Lancer les rounds' : estCheck ? 'Fait' : 'Valider'}
         </Bouton>
         <div
           className="mt-2 flex gap-2"
@@ -492,7 +505,7 @@ function RunnerSeance({ logId }: { logId: string }) {
         ouverte={feuilleQuitter}
         onOpenChange={setFeuilleQuitter}
         titre="Quitter la séance ?"
-        description={`${faites} exercice(s) validé(s) sur ${etapes.length}. Tout est déjà enregistré.`}
+        description={`${pluriel(faites, 'exercice')} validé${faites > 1 ? 's' : ''} sur ${etapes.length}. Tout est déjà enregistré.`}
       >
         <div className="space-y-3 pb-4">
           <Bouton variante="primaire" pleineLargeur onClick={() => setFeuilleQuitter(false)}>

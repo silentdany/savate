@@ -10,7 +10,7 @@ import { MOTIF_FIN, amorcerAudio, bipFin, vibrer } from '@/lib/audio'
 import { exporterJson, importerJson } from '@/lib/backup'
 import { basculerAllegee, changerSemaine, majReglages, remiseAZero } from '@/lib/db'
 import { useEtat, useLogs, useMonte, usePlan, useReglages } from '@/lib/hooks'
-import { formatDuree, parametresSemaine } from '@/lib/progression'
+import { formatDuree, parametresSemaine, pluriel } from '@/lib/progression'
 
 function Section({ titre, children }: { titre: string; children: React.ReactNode }) {
   return (
@@ -49,7 +49,7 @@ export default function PageReglages() {
   const surExport = async () => {
     try {
       await exporterJson()
-      setMessage({ ton: 'ok', texte: `Export généré (${logs.length} séance(s)).` })
+      setMessage({ ton: 'ok', texte: `Export généré (${pluriel(logs.length, 'séance')}).` })
     } catch (e) {
       setMessage({ ton: 'erreur', texte: e instanceof Error ? e.message : 'Export impossible.' })
     }
@@ -60,7 +60,7 @@ export default function PageReglages() {
       const resultat = await importerJson(await fichier.text())
       setMessage({
         ton: 'ok',
-        texte: `${resultat.logs} séance(s) importée(s), semaine ${resultat.semaineCourante}.`,
+        texte: `${pluriel(resultat.logs, 'séance')} importée${resultat.logs > 1 ? 's' : ''}, semaine ${resultat.semaineCourante}.`,
       })
     } catch (e) {
       setMessage({ ton: 'erreur', texte: e instanceof Error ? e.message : 'Import impossible.' })
@@ -215,8 +215,8 @@ export default function PageReglages() {
             Tout remettre à zéro
           </Bouton>
           <p className="px-2 pb-1 text-[16px] leading-relaxed text-ink-3">
-            {logs.length} séance(s) enregistrée(s). L’import remplace intégralement les données
-            existantes. Le contenu du plan, lui, vient toujours du fichier de seed.
+            {pluriel(logs.length, 'séance')} enregistrée{logs.length > 1 ? 's' : ''}. L’import
+            remplace intégralement les données existantes. Le contenu du plan, lui, vient toujours du fichier de seed.
           </p>
         </div>
       </Section>
@@ -249,7 +249,7 @@ export default function PageReglages() {
         titre={etapeRaz === 1 ? 'Tout remettre à zéro ?' : 'Dernière confirmation'}
         description={
           etapeRaz === 1
-            ? `${logs.length} séance(s), la semaine courante et les réglages seront effacés. Le plan est conservé.`
+            ? `${pluriel(logs.length, 'séance')}, la semaine courante et les réglages seront effacés. Le plan est conservé.`
             : 'Cette action est définitive et rien n’est synchronisé ailleurs. Exporte d’abord si tu hésites.'
         }
       >

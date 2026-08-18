@@ -81,7 +81,8 @@ export function ClotureSeance({
         </p>
         <h1 className="mt-1 text-3xl font-extrabold tracking-tight">{nomSeance}</h1>
         <p className="mt-1 text-[17px] text-ink-2">
-          {exercicesFaits} exercice(s) sur {exercicesTotal} · {dureeMin} min
+          {exercicesFaits} exercice{exercicesFaits > 1 ? 's' : ''} sur {exercicesTotal} ·{' '}
+          {dureeMin} min
         </p>
       </header>
 

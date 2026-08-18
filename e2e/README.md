@@ -17,6 +17,7 @@ Puis, dans un autre terminal :
 | `npm run e2e:seance` | Lot 3 : une séance de renfo loggée de bout en bout, zéro clavier |
 | `npm run e2e:timer` | Lot 4 : gel du thread JS 30 s en plein round 2, temps juste au retour |
 | `npm run e2e:audit` | axe-core + taille des cibles tactiles sur les 6 écrans |
+| `npm run e2e:seed` | Le plan vient bien du fichier de seed, sans écraser les séances loggées |
 | `npm run e2e:pwa` | Manifest, service worker, caches, `start_url` hors ligne |
 | `npm run e2e:captures <dossier>` | Captures d'écran de tous les écrans |
 

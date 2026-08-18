@@ -16,7 +16,8 @@
     "e2e:audit": "node e2e/audit.mjs",
     "e2e:pwa": "node e2e/pwa.mjs",
     "e2e:captures": "node e2e/captures.mjs",
-    "verifier": "npm run typecheck && npm run lint && npm run build"
+    "verifier": "npm run typecheck && npm run lint && npm run build",
+    "e2e:seed": "node e2e/seed.mjs"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.23",

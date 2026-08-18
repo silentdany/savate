@@ -104,6 +104,9 @@ export function GraphiqueBarres(props: BaseProps) {
   const { donnees, couleur, semaineCourante, format } = props
   const fmt = format ?? ((v: number) => String(Math.round(v)))
   const max = Math.max(1, ...donnees.map((d) => d.valeur ?? 0))
+  // Les barres plafonnent à 88 % de la hauteur : les 12 % du haut sont la
+  // réserve de l'étiquette du maximum, qui sinon chevaucherait le titre.
+  const PLAFOND = 88
   const indexMax = donnees.findIndex((d) => (d.valeur ?? 0) === max && max > 0)
 
   return (
@@ -111,7 +114,7 @@ export function GraphiqueBarres(props: BaseProps) {
       <div className="flex h-40 items-end gap-1">
         {donnees.map((d, i) => {
           const v = d.valeur ?? 0
-          const hauteur = max > 0 ? (v / max) * 100 : 0
+          const hauteur = max > 0 ? (v / max) * PLAFOND : 0
           const actif = selection === d.semaine
           // Etiquette directe uniquement sur le maximum : jamais un nombre sur
           // chaque barre, ca noie la lecture.
