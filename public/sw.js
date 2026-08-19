@@ -1,4 +1,4 @@
-/* Service worker BF Dojo.
+/* Service worker de l'app Savate.
  *
  * Objectif : l'app doit demarrer et fonctionner integralement en mode avion,
  * des le premier chargement. Les donnees vivent dans IndexedDB, donc le SW n'a
@@ -14,9 +14,9 @@
  */
 
 const VERSION = 'v1'
-const SHELL_CACHE = `bfdojo-shell-${VERSION}`
-const ASSET_CACHE = `bfdojo-assets-${VERSION}`
-const DATA_CACHE = `bfdojo-rsc-${VERSION}`
+const SHELL_CACHE = `savate-shell-${VERSION}`
+const ASSET_CACHE = `savate-assets-${VERSION}`
+const DATA_CACHE = `savate-rsc-${VERSION}`
 const KEEP = new Set([SHELL_CACHE, ASSET_CACHE, DATA_CACHE])
 
 const ROUTES = ['/', '/plan', '/historique', '/reglages', '/seance/_']

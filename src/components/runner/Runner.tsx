@@ -46,7 +46,7 @@ const formatCharge = (v: number) => (Number.isInteger(v) ? String(v) : v.toFixed
  * et servi depuis le cache du service worker meme hors ligne (cf. public/sw.js).
  * L'identifiant est lu dans l'URL reelle, jamais dans le payload RSC.
  */
-const TITRE = 'Séance — BF Dojo'
+const TITRE = 'Séance — Savate'
 
 export function Runner() {
   const monte = useMonte()

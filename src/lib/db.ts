@@ -29,6 +29,9 @@ class BfDojoDb extends Dexie {
   reglages!: Table<Reglages, string>
 
   constructor() {
+    // Le nom de la base reste 'bf-dojo' malgre le renommage de l'app en
+    // « Savate » : le changer creerait une base vide a cote et rendrait
+    // orphelines toutes les seances deja loggees sur l'appareil.
     super('bf-dojo')
     this.version(1).stores({
       plans: 'id',

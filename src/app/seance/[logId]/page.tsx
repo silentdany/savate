@@ -9,7 +9,7 @@ import { SENTINELLE_SEANCE } from '@/lib/routes'
  * seances, ce qui permet au service worker d'en servir une copie unique et de
  * demarrer une seance en mode avion.
  */
-export const metadata: Metadata = { title: 'Séance — BF Dojo' }
+export const metadata: Metadata = { title: 'Séance — Savate' }
 
 export function generateStaticParams() {
   return [{ logId: SENTINELLE_SEANCE }]

@@ -8,7 +8,7 @@ import { useMonte } from '@/lib/hooks'
 type EvenementInstall = Event & { prompt: () => Promise<void>; userChoice: Promise<unknown> }
 
 // Simple preference d'interface, pas une donnee de seance : localStorage suffit.
-const CLE_REFUS = 'bf-dojo:invite-install-masquee'
+const CLE_REFUS = 'savate:invite-install-masquee'
 
 /**
  * Etat de la plateforme, lu une seule fois au chargement du module (donc hors
@@ -67,7 +67,7 @@ export function InviteInstallation({ className }: { className?: string }) {
       className={cn('rounded-card border border-line bg-surface p-5', className)}
       aria-label="Installer l’application"
     >
-      <p className="text-[18px] font-bold">Installe BF Dojo sur ton écran d’accueil</p>
+      <p className="text-[18px] font-bold">Installe Savate sur ton écran d’accueil</p>
       <p className="mt-1 text-[17px] leading-relaxed text-ink-2">
         {PLATEFORME.ios
           ? 'Bouton Partager, puis « Sur l’écran d’accueil ». L’app s’ouvre alors en plein écran et fonctionne sans réseau.'

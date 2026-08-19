@@ -1,5 +1,5 @@
 /**
- * Modele de donnees BF Dojo.
+ * Modele de donnees de l'app Savate.
  *
  * Contraintes issues du cahier des charges :
  *  - identifiants stables et timestamps ISO partout, pour qu'une synchro
@@ -150,7 +150,8 @@ export type ParametresSemaine = ProgressionSemaine & {
 
 /** Forme du fichier d'export / import JSON. */
 export type Sauvegarde = {
-  format: 'bf-dojo'
+  /** 'savate' depuis le renommage ; 'bf-dojo' reste accepte a l'import. */
+  format: 'savate' | 'bf-dojo'
   version: 1
   exporteLe: string
   plan: Plan

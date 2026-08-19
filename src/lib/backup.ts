@@ -27,7 +27,7 @@ export async function construireSauvegarde(): Promise<Sauvegarde> {
     .map((l) => l.seanceTemplateId)
 
   return {
-    format: 'bf-dojo',
+    format: 'savate',
     version: 1,
     exporteLe: new Date().toISOString(),
     plan,
@@ -40,7 +40,7 @@ export async function construireSauvegarde(): Promise<Sauvegarde> {
 
 export function nomFichierSauvegarde(d = new Date()) {
   const p = (n: number) => String(n).padStart(2, '0')
-  return `bf-dojo-${d.getFullYear()}${p(d.getMonth() + 1)}${p(d.getDate())}-${p(d.getHours())}${p(d.getMinutes())}.json`
+  return `savate-${d.getFullYear()}${p(d.getMonth() + 1)}${p(d.getDate())}-${p(d.getHours())}${p(d.getMinutes())}.json`
 }
 
 export async function exporterJson() {
@@ -91,7 +91,11 @@ export async function importerJson(texte: string): Promise<ResultatImport> {
   if (typeof brut !== 'object' || brut === null) throw new Error('Fichier vide ou invalide.')
 
   const s = brut as Partial<Sauvegarde>
-  if (s.format !== 'bf-dojo') throw new Error('Ce fichier ne vient pas de BF Dojo.')
+  // 'bf-dojo' est l'ancien identifiant : les exports d'avant le renommage
+  // doivent continuer a se reimporter.
+  if (s.format !== 'savate' && s.format !== 'bf-dojo') {
+    throw new Error('Ce fichier ne vient pas de l’app Savate.')
+  }
   if (s.version !== 1) throw new Error(`Version de sauvegarde non geree (${String(s.version)}).`)
   if (!Array.isArray(s.logs)) throw new Error('Sauvegarde sans liste de seances.')
 

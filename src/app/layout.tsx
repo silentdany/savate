@@ -4,11 +4,11 @@ import { AppChrome } from '@/components/nav/AppChrome'
 import { ServiceWorkerRegistrar } from '@/components/ServiceWorkerRegistrar'
 
 export const metadata: Metadata = {
-  title: 'BF Dojo',
+  title: 'Savate',
   description: 'Plan de savate boxe francaise sur 8 semaines, utilisable au dojo, hors ligne.',
   manifest: '/manifest.webmanifest',
-  applicationName: 'BF Dojo',
-  appleWebApp: { capable: true, title: 'BF Dojo', statusBarStyle: 'black-translucent' },
+  applicationName: 'Savate',
+  appleWebApp: { capable: true, title: 'Savate', statusBarStyle: 'black-translucent' },
   icons: {
     icon: [
       { url: '/icons/icon-192.png', sizes: '192x192', type: 'image/png' },
