@@ -67,8 +67,9 @@ Dépose le logo dans `assets/logo.svg` (ou `.png`) puis :
 npm run icons
 ```
 
-Sans fichier, le script génère un mark géométrique de repli. Voir
-[`assets/README.md`](assets/README.md).
+Sans fichier, le script génère un mark géométrique de repli. L'icône actuelle
+utilise le logo de la FFSBF&DA — voir [`assets/README.md`](assets/README.md)
+pour la provenance.
 
 ## Notes
 

@@ -46,21 +46,49 @@ const fondSvg = (radius, contenu = '') =>
   ${contenu}
 </svg>`
 
-/** Rend une icone en memoire. `couverture` = part du cadre occupee par le mark. */
-async function rendre(taille, couverture, radius) {
-  let image
-  if (source) {
-    const cote = Math.round(512 * couverture)
-    // density eleve : un SVG source doit etre rasterise net, pas etire ensuite.
-    const logo = await sharp(source, { density: 600 })
-      .resize(cote, cote, { fit: 'inside', background: { r: 0, g: 0, b: 0, alpha: 0 } })
-      .png()
-      .toBuffer()
-    image = sharp(Buffer.from(fondSvg(radius))).composite([{ input: logo, gravity: 'center' }])
-  } else {
-    image = sharp(Buffer.from(fondSvg(radius, markGeometrique(couverture))))
+const CADRE = 512
+
+/**
+ * Part haute du logo conservee pour le favicon. A 16-32 px, un texte de
+ * signature ne fait qu'une bouillie grise qui mange la moitie du cadre : on ne
+ * garde que le mark graphique. Mettre 1 pour un logo sans texte.
+ */
+const FAVICON_RECADRAGE = 0.66
+
+/**
+ * Rend une icone en memoire. `couverture` = part du cadre occupee par le mark.
+ *
+ * Le `.resize(CADRE)` sur le fond n'est pas decoratif : sharp rasterise un SVG
+ * a 72 DPI, donc un `width="512"` sort a 384 px. Sans ce recadrage, le logo
+ * composite serait plus grand que son support, et le mark geometrique perdrait
+ * en nettete a l'agrandissement final.
+ */
+async function rendre(taille, couverture, radius, recadrage = 1) {
+  const contenu = source ? '' : markGeometrique(couverture)
+  const fond = sharp(Buffer.from(fondSvg(radius, contenu))).resize(CADRE, CADRE)
+
+  if (!source) return fond.resize(taille, taille).png().toBuffer()
+
+  let brut = sharp(source, { density: 600 })
+  if (recadrage < 1) {
+    const { width = 0, height = 0 } = await brut.metadata()
+    brut = sharp(source, { density: 600 }).extract({
+      left: 0,
+      top: 0,
+      width,
+      height: Math.round(height * recadrage),
+    })
   }
-  return image.resize(taille, taille).png().toBuffer()
+
+  const cote = Math.round(CADRE * couverture)
+  // Density elevee : un SVG source doit etre rasterise net, pas etire ensuite.
+  const logo = await brut
+    .resize(cote, cote, { fit: 'inside', background: { r: 0, g: 0, b: 0, alpha: 0 } })
+    .png()
+    .toBuffer()
+
+  const composee = await fond.composite([{ input: logo, gravity: 'center' }]).png().toBuffer()
+  return sharp(composee).resize(taille, taille).png().toBuffer()
 }
 
 /**
@@ -107,7 +135,10 @@ await render('apple-touch-icon.png', 180, source ? 0.78 : 1, 0)
 // Favicon : l'onglet du navigateur affichait encore celui de Next.js.
 const ico = encoderIco(
   await Promise.all(
-    [16, 32, 48].map(async (t) => ({ taille: t, data: await rendre(t, source ? 0.86 : 1, 0) }))
+    [16, 32, 48].map(async (t) => ({
+      taille: t,
+      data: await rendre(t, source ? 0.8 : 1, 0, source ? FAVICON_RECADRAGE : 1),
+    }))
   )
 )
 writeFileSync(new URL('../src/app/favicon.ico', import.meta.url), ico)
